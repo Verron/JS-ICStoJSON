@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			
+		</title>
+		<script type="text/javascript" src="../icsparser.js"></script>
+	</head>
+	<body>
+		<form id="appUpload" class="fileForm">
+			<input id="fileOpen" type="file" class="multi" maxlength="2" />
+			<input type=submit /></input>
+		</form>
+	</body>
+	<script type="text/javascript">
+		readFile = (function( selection ) {
+			var file = selection.target.files[0] // Only concerned with first selection
+			reader = new FileReader();
+			reader.onload = function ( e ) {
+				var tmp = e.target.result;
+				var tmp2 = ICSParser(tmp);
+				document.write(JSON.stringify(tmp2));
+			}
+			reader.onerror = function ( e ) {
+				alert( "There was an error!"+e.target.error.code );
+			}
+			reader.readAsText(file);
+		});
+		
+		document.getElementById('fileOpen').addEventListener('change', readFile, false)
+		//var tmp = ICSParser("basic.ics");
+		//document.write(JSON.stringify(tmp));
+		
+	</script>
+</html>
